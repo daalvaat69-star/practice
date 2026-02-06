@@ -1,0 +1,72 @@
+#include <stdio.h>
+#include <time.h>
+#include <string.h>
+
+int main(){
+ char *tasks [7] = {
+    "Nur",
+    "Anika",
+    "Munni",
+    "Zafrin",
+    "Sadiya",
+    "Maisha",
+    "Priya"
+
+ };
+
+ int day;
+ int month;
+ int year;
+ printf("Enter Today's date (DD MM YYYY): ");
+ scanf("%d %d %d", &day, &month, &year);
+
+ struct tm time_in ={0};
+ time_in.tm_mday = day;
+ time_in.tm_mon = month - 1;
+ time_in.tm_year = year - 1900;
+
+ mktime(&time_in);
+ int weekday = time_in.tm_wday;
+
+ printf("Today is  ");
+  switch(weekday){
+    case 0: printf("Sunday\n"); break;
+    case 1: printf("Monday\n"); break;
+    case 2: printf("Tuesday\n"); break;
+    case 3: printf("Wednesday\n"); break;
+    case 4: printf("Thursday\n"); break;
+    case 5: printf("Friday\n"); break;
+    case 6: printf("Saturday\n"); break;
+
+ }
+
+    printf("You're supposed to meet with %s today \n", tasks[weekday]);
+
+    char choice;
+    printf("Do you wanna meet someone else too? (y/n): ");
+    scanf(" %c", &choice);
+    if(choice == 'y' ||choice == 'Y'){
+        int taskNum;
+        printf("Who do you wanna meet later? (1=Saturday, 2=Sunday.....7=Friday): ");
+        scanf("%d", &taskNum);
+
+        if(taskNum >=1 && taskNum <=7) {
+            int extraDay = taskNum -1;
+            printf("\nSo, you're gonna meet two of them today:\n");
+            printf("1. %s (By schedule today was:)\n", tasks[weekday]);
+            printf("2. %s (You took extra: %s)\n", tasks[extraDay],
+            (extraDay==0?"Saturday": extraDay==1?"Sunday": extraDay==2?"Monday":  extraDay==3?"Tuesday":  extraDay==4?"Wednesday": extraDay==5?"Thursday": "Friday" ));
+            printf("\nNote: Since today you're dating '%s' too ...\n", tasks[extraDay]);
+            printf("So on %s, You won't get to meet anyone \n",(extraDay==0?"Saturday": extraDay==1?"Sunday": extraDay==2?"Monday":  extraDay==3?"Tuesday":  extraDay==4?"Wednesday": extraDay==5?"Thursday": "Friday" ));
+        }
+        else{
+            printf("Meh, theres no one like that. kill yourself!\n");
+        }
+       
+    }
+    else{
+        printf("Good boy. Good boys don't date multiple girls in a single day");
+    }
+    return 0;
+
+}
